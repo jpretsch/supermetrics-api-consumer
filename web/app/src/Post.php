@@ -8,20 +8,16 @@ use DateTime;
 Class Post
 {
     
+    protected $api = null;
+    
     public function __construct(){
-
+        $this->api = new Api\Api();
     }
 
-    public function getAll($token)
-    {
-        $api = new Api\Api();
-        $result = $api->getAllPosts($token);
-    }  
-     
     public function getTotalPosts($period = 'W'){
-        global $allThePosts; //@todo just for dev
+        #global $allThePosts; //@todo just for dev
         $totals = []; 
-        $posts = $allThePosts;
+        $posts = $this->api->getAllPosts();
         foreach($posts as $post){
             $dt = new DateTime($post['created_time']);
             $period_key = date($period, $dt->getTimestamp());

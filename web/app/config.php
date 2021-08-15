@@ -11,7 +11,8 @@ define('VALID_INPUTS', [
     'period'        => ['month', 'week']
 ]);
 
-$allThePosts = 
+//can use this to avoid hitting the api
+/*$allThePosts = 
 
 array (
   0 => 
@@ -9014,4 +9015,4 @@ array (
     'type' => 'status',
     'created_time' => '2021-02-07T08:46:15+00:00',
   ),
-);
+);*/
