@@ -12,7 +12,8 @@
         "psr-4": {
             "App\\Acme\\": "src/",
             "App\\Api\\": "src/",
-            "App\\Post\\": "src/"
+            "App\\Post\\": "src/",
+            "App\\Helpers\\": "src/"
         }
     },
     "autoload-dev": {

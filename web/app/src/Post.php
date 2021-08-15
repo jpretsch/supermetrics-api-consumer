@@ -27,6 +27,19 @@ Class Post
         return $totals;
     }
 
+    public function getAveragePerUser($period = 'm'){
+        #global $allThePosts; //@todo just for dev
+        $totals = []; 
+        $posts = $this->api->getAllPosts();
+        foreach($posts as $post){
+            $dt = new DateTime($post['created_time']);
+            $period_key = date($period, $dt->getTimestamp());
+            $totals[$period_key]['count']++;
+        }
+        ksort($totals);
+        return $totals;
+    }
+
     public function getLongestCharLength($period = 'm')
     {
         global $allThePosts; //@todo just for dev

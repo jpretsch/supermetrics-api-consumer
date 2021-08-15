@@ -23,35 +23,38 @@ $datapoint = filter_var($_REQUEST['datapoint'], FILTER_SANITIZE_STRING);
 $datafunction = filter_var($_REQUEST['datafunction'], FILTER_SANITIZE_STRING);
 $period = filter_var($_REQUEST['period'], FILTER_SANITIZE_STRING);
 
-#if(Helpers\checkInput($datapoint, $datafunction, $period) === false){
-#    die("error invalid input"); //@todo give a more specific message
-#}//otherwise continue on
-
-switch($datapoint)
-{
+switch ($datapoint) {
     case "charlength":
-        switch($datafunction)
-        {
+        switch ($datafunction) {
             case "avg":
                 $result = $post->getAverageCharLength();
             break;
             case "longest":
                 $result = $post->getLongestCharLength();
-            break;  
+            break;
+            default:
+                Helpers\Helpers::outputErrorMessage(INVALID_REQUEST_ERROR, 404);
         }
     case "posts":
-        switch($datafunction)
-        {
+        switch ($datafunction) {
             case "total":
                 $result = $post->getTotalPosts();
             break;
+            default:
+                Helpers\Helpers::outputErrorMessage(INVALID_REQUEST_ERROR, 404);
  
         }
-
+        // no break
+    case "postsperuser":
+        $result = $post->getAveragePerUser();
+    break;
+    default:
+    Helpers\Helpers::outputErrorMessage(INVALID_REQUEST_ERROR, 404);
 }
 
-echo json_encode($result);
+Helpers\Helpers::outputJson($result);
 
+//some debuging code @todo remove this
 function op($data, $die=true){
     print "<br><br>******************<br><br>";
     print "<pre>";
