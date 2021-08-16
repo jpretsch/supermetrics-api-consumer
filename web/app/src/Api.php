@@ -3,8 +3,6 @@
 namespace App\Api;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7;
-use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Exception\ClientException;
 

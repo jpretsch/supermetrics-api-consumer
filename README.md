@@ -18,7 +18,7 @@ All requisites should be available for your distribution. The most important are
 
 Keeping this nice and simple
 
-git clone https://github.com/jpretsch/supermetrics-api-consumer.git  
+git clone https://github.com/jpretsch/supermetrics-api-consumer.git    
 docker-compose up -d
 
 ## Usage 
