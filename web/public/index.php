@@ -23,6 +23,7 @@ $datapoint = filter_var($_REQUEST['datapoint'], FILTER_SANITIZE_STRING);
 $datafunction = filter_var($_REQUEST['datafunction'], FILTER_SANITIZE_STRING);
 $period = filter_var($_REQUEST['period'], FILTER_SANITIZE_STRING);
 
+//main controller
 switch ($datapoint) {
     case "charlength":
         switch ($datafunction) {
@@ -44,7 +45,6 @@ switch ($datapoint) {
                 Helpers\Helpers::outputErrorMessage(INVALID_REQUEST_ERROR, 404);
  
         }
-        // no break
     case "postsperuser":
         $result = $post->getAveragePerUser();
     break;

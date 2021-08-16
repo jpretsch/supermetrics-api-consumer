@@ -11,7 +11,7 @@ define('VALID_INPUTS', [
     'period'        => ['month', 'week']
 ]);
 
-define('INVALID_REQUEST_ERROR', "Invalid input: the requested functionality is not currently available")
+define('INVALID_REQUEST_ERROR', "Invalid input: the requested functionality is not currently available");
 
 //can use this to avoid hitting the api
 /*$allThePosts = 

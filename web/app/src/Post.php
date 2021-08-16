@@ -15,7 +15,6 @@ Class Post
     }
 
     public function getTotalPosts($period = 'W'){
-        #global $allThePosts; //@todo just for dev
         $totals = []; 
         $posts = $this->api->getAllPosts();
         foreach($posts as $post){
@@ -23,27 +22,36 @@ Class Post
             $period_key = date($period, $dt->getTimestamp());
             $totals[$period_key]['count']++;
         }
-        ksort($totals);
         return $totals;
     }
 
     public function getAveragePerUser($period = 'm'){
-        #global $allThePosts; //@todo just for dev
-        $totals = []; 
         $posts = $this->api->getAllPosts();
+        $userCounts = []; 
+        $periods = [];
         foreach($posts as $post){
-            $dt = new DateTime($post['created_time']);
-            $period_key = date($period, $dt->getTimestamp());
-            $totals[$period_key]['count']++;
+       
+            $ukey = str_replace('user_', '', $post['from_id']);
+            $userCounts[$ukey]['count']++;
+            $userCounts[$ukey]['from_id'] = $post['from_id'];
         }
-        ksort($totals);
-        return $totals;
+        ksort($userCounts);
+        $monthlyAverages = [];
+        $range = $this->getRangeOfPosts($posts, $period);
+        foreach($userCounts as $key => $val){
+            if($range == 0){
+                break;
+            }
+            $avg = round($val['count'] / $range, 2);
+            $monthlyAverages[$key]['from_id'] = $val['from_id'];
+            $monthlyAverages[$key]['avg'] =  $avg;
+        }
+        return $monthlyAverages;
     }
 
     public function getLongestCharLength($period = 'm')
     {
-        global $allThePosts; //@todo just for dev
-        $posts = $allThePosts;
+        $posts = $this->api->getAllPosts();
         $maximums = [];
         foreach($posts as $post){
             $dt = new DateTime($post['created_time']);
@@ -54,7 +62,6 @@ Class Post
                 $maximums[$month]['id'] = $post['id'];
             }
         } 
-        ksort($maximums);
         return $maximums;
     }
     
@@ -68,18 +75,29 @@ Class Post
             $month = date($period, $dt->getTimestamp());
             $averages[$month]['total'] += strlen($post['message']);
             $averages[$month]['count']++;
-
-
         }
         $averages = $this->calculateAverages($averages);
         return $averages;
     }
 
-    protected function calculateAverages($averages){
+    protected function getRangeOfPosts($posts, $period = 'm')
+    {
+        $periods = [];
+        foreach ($posts as $post) {
+            $dt = new DateTime($post['created_time']);
+            $period_val = date($period, $dt->getTimestamp());
+            if(in_array($period_val, $periods)){
+                continue;
+            }
+            $periods[] = $period_val;
+        }
+        sort($periods);
+        return (count($periods));
+    }
 
+    protected function calculateAverages($averages){
         $returnval = [];
         ksort($averages);
-
         foreach($averages as $key => $val){
             if($val['total'] == 0){
                 $returnval[$key] = 0;
@@ -93,6 +111,4 @@ Class Post
         }
         return $returnval;
     }
-
-
 }
