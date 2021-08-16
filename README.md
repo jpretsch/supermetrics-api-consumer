@@ -18,7 +18,7 @@ All requisites should be available for your distribution. The most important are
 
 Keeping this nice and simple
 
-git clone https://github.com/jpretsch/supermetrics-api-consumer.git
+git clone https://github.com/jpretsch/supermetrics-api-consumer.git  
 docker-compose up -d
 
 ## Usage 
@@ -26,16 +26,16 @@ docker-compose up -d
 Output can be accessed through a browser using localhost.
 
 * Browser:
-    * Average character length of posts per month
+    * Average character length of posts per month  
     http://localhost/?datapoint=charlength&datafunction=avg&period=m
     
-    * Longest post by character length per month
+    * Longest post by character length per month  
     http://localhost/?datapoint=charlength&datafunction=longest&period=m
 
-    * Total posts split by week number 
+    * Total posts split by week number   
     http://localhost/?datapoint=posts&datafunction=total&period=W
 
-    * Average number of posts per user per month
+    * Average number of posts per user per month  
     http://localhost/?datapoint=postsperuser&period=m
 
     note: the period parameter is included for future extensibility. It is not currently needed and defaults to the appropriate value.
