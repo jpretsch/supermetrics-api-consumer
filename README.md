@@ -21,6 +21,9 @@ Keeping this nice and simple
 git clone https://github.com/jpretsch/supermetrics-api-consumer.git    
 docker-compose up -d
 
+To shut it down:
+docker-compose down
+
 ## Usage 
 
 Output can be accessed through a browser using localhost.
@@ -46,6 +49,20 @@ Output can be accessed through a browser using localhost.
 
 * web/app/src/Api.php  This is the source file for the Api class which does all the interaction with the api. An external library, Guzzle is used here for api calls. Its a little cleaner and easier than accessing curl directly. 
 
+* web/app/src/Post.php This class handles crunching the data for the various requests. Methods which return something per time period use php datetime format string for extensibility.
+
+* web/app/src/user.php Does nothing presently. Included for future dev.
+
+* web/app.config.php defines constants
+
+* web/public/index.php the public facing interface for the app which also acts as the controller
+
+
+## Possible future improvements
+
+* add unit tests
+* use Traits for data structures
+* store the token and use it when still valid saving api hits
 
 ## Images to use
 
