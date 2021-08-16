@@ -10,11 +10,11 @@ class Helpers
         die();
     }
 
-    public static function outputJson($data, $code=200)
+    public static function outputJson($data, $title = '', $code=200)
     {
         ksort($data); //order by keys (weeks, months and such)
         header('Content-Type: application/json', true, $code);
-        echo json_encode([$code, $data], JSON_PRETTY_PRINT);
+        echo json_encode([['code:', $code], [$title], $data], JSON_PRETTY_PRINT);
         die();
     }
 }

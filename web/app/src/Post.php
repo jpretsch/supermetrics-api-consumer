@@ -67,9 +67,8 @@ Class Post
     
     public function getAverageCharLength($period = 'm')
     {
-        global $allThePosts; //@todo just for dev
         $averages = []; 
-        $posts = $allThePosts;
+        $posts = $this->api->getAllPosts();
         foreach($posts as $post){
             $dt = new DateTime($post['created_time']);
             $month = date($period, $dt->getTimestamp());

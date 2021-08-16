@@ -23,36 +23,46 @@ $datapoint = filter_var($_REQUEST['datapoint'], FILTER_SANITIZE_STRING);
 $datafunction = filter_var($_REQUEST['datafunction'], FILTER_SANITIZE_STRING);
 $period = filter_var($_REQUEST['period'], FILTER_SANITIZE_STRING);
 
+#echo "datapoint = $datapoint";
+#echo "datafunction = $datafunction";
 //main controller
 switch ($datapoint) {
     case "charlength":
         switch ($datafunction) {
             case "avg":
+                $title = "Average char length per post per month"; //output titles for clarity
                 $result = $post->getAverageCharLength();
-            break;
+                break;
             case "longest":
+                $title = "Longest post by character length per month";
                 $result = $post->getLongestCharLength();
-            break;
+                break;
             default:
                 Helpers\Helpers::outputErrorMessage(INVALID_REQUEST_ERROR, 404);
+                break;
         }
+        break;
     case "posts":
         switch ($datafunction) {
             case "total":
-                $result = $post->getTotalPosts();
-            break;
+                $title = "Total posts split by week number";
+                $result = $post->getTotalPosts('W'); //W = week number
+                break;
             default:
                 Helpers\Helpers::outputErrorMessage(INVALID_REQUEST_ERROR, 404);
+                break;
  
         }
+        break;
     case "postsperuser":
         $result = $post->getAveragePerUser();
-    break;
+        break;
     default:
-    Helpers\Helpers::outputErrorMessage(INVALID_REQUEST_ERROR, 404);
+        Helpers\Helpers::outputErrorMessage(INVALID_REQUEST_ERROR, 404);
+        break;
 }
 
-Helpers\Helpers::outputJson($result);
+Helpers\Helpers::outputJson($result, $title);
 
 //some debuging code @todo remove this
 function op($data, $die=true){
