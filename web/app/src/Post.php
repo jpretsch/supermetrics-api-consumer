@@ -10,10 +10,18 @@ Class Post
     
     protected $api = null;
     
+    /**
+     * Constructor, create an api object
+    */
     public function __construct(){
         $this->api = new Api\Api();
     }
 
+    /**
+     * get the total posts per time period, in this case week
+     * @param string period (date format parameter string)
+     * @return array totals
+     */
     public function getTotalPosts($period = 'W'){
         $totals = []; 
         $posts = $this->api->getAllPosts();
@@ -25,6 +33,11 @@ Class Post
         return $totals;
     }
 
+    /**
+     * get the average posts per user per time period, in this case month
+     * @param string period (date format parameter string)
+     * @return array monthyAverages
+     */
     public function getAveragePerUser($period = 'm'){
         $posts = $this->api->getAllPosts();
         $userCounts = []; 
@@ -49,6 +62,11 @@ Class Post
         return $monthlyAverages;
     }
 
+    /**
+     * get the longest post per each time period (month)
+     * @param string period (date format parameter string)
+     * @return array maximums
+     */
     public function getLongestCharLength($period = 'm')
     {
         $posts = $this->api->getAllPosts();
@@ -64,7 +82,12 @@ Class Post
         } 
         return $maximums;
     }
-    
+
+    /**
+     * get the longest post per each time period (month)
+     * @param string period (date format parameter string)
+     * @return array maximums
+     */
     public function getAverageCharLength($period = 'm')
     {
         $averages = []; 

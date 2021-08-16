@@ -23,19 +23,17 @@ $datapoint = filter_var($_REQUEST['datapoint'], FILTER_SANITIZE_STRING);
 $datafunction = filter_var($_REQUEST['datafunction'], FILTER_SANITIZE_STRING);
 $period = filter_var($_REQUEST['period'], FILTER_SANITIZE_STRING);
 
-#echo "datapoint = $datapoint";
-#echo "datafunction = $datafunction";
 //main controller
 switch ($datapoint) {
     case "charlength":
         switch ($datafunction) {
             case "avg":
                 $title = "Average char length per post per month"; //output titles for clarity
-                $result = $post->getAverageCharLength();
+                $result = $post->getAverageCharLength('m');
                 break;
             case "longest":
                 $title = "Longest post by character length per month";
-                $result = $post->getLongestCharLength();
+                $result = $post->getLongestCharLength('m');
                 break;
             default:
                 Helpers\Helpers::outputErrorMessage(INVALID_REQUEST_ERROR, 404);
@@ -55,6 +53,7 @@ switch ($datapoint) {
         }
         break;
     case "postsperuser":
+        $title = "Average number of posts per user per month";
         $result = $post->getAveragePerUser();
         break;
     default:
@@ -63,12 +62,3 @@ switch ($datapoint) {
 }
 
 Helpers\Helpers::outputJson($result, $title);
-
-//some debuging code @todo remove this
-function op($data, $die=true){
-    print "<br><br>******************<br><br>";
-    print "<pre>";
-    var_export($data);
-    print "</pre>";
-    if($die){ die('bye'); }
-}

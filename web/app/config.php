@@ -6,12 +6,21 @@
 
 //for input checking
 define('VALID_INPUTS', [
-    'datapoint'     => ['charlength', 'posts'],
+    'datapoints'     => ['charlength', 'posts'],
     'datafunction'  => ['avg', 'total', 'longest'],
     'period'        => ['month', 'week']
 ]);
 
 define('INVALID_REQUEST_ERROR', "Invalid input: the requested functionality is not currently available");
+
+define('BASE_URL', 'https://api.supermetrics.com'); 
+define('BASE_PATH', '/assignment/register');
+
+define('CLIENT_INFO', [
+    'client_id' => 'ju16a6m81mhid5ue1z3v2g0uh',
+    'email'     => 'john.pretsch@gmail.com',
+    'name'  => 'Jonny Stomperton'
+]);
 
 //can use this to avoid hitting the api
 /*$allThePosts = 

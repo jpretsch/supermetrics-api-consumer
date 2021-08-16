@@ -41,6 +41,12 @@ Output can be accessed through a browser using localhost.
     note: the period parameter is included for future extensibility. It is not currently needed and defaults to the appropriate value.
 
     * Other query strings will produce a 404 error
+
+## Design consideratiosn
+
+* web/app/src/Api.php  This is the source file for the Api class which does all the interaction with the api. An external library, Guzzle is used here for api calls. Its a little cleaner and easier than accessing curl directly. 
+
+
 ## Images to use
 
 * [Nginx](https://hub.docker.com/_/nginx/)
